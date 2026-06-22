@@ -44,14 +44,14 @@
       <span class="text-xl font-extrabold tracking-wide">BDIX <span class="text-primary">IPTV</span> <span
           class="bg-primary/20 text-primary text-[10px] px-1.5 py-0.5 rounded font-bold align-middle ml-1">LIVE</span></span>
     </div>
-    <a href="#"
+    <a href="https://www.facebook.com/profile.php?id=100086024240518"
       class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors"
       target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
         <path
           d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" />
       </svg>
-      FB Page
+      Facebook
     </a>
   </header>
 
@@ -59,7 +59,7 @@
   <main class="flex-1 flex overflow-hidden lg:flex-row flex-col">
 
     <!-- Left: Player Area -->
-    <section class="flex-1 bg-black flex flex-col relative h-full">
+    <section class="w-full h-[35vh] sm:h-[45vh] lg:h-full lg:flex-1 bg-black flex flex-col relative shrink-0">
       <!-- Player Wrapper -->
       <div class="flex-1 relative overflow-hidden bg-black w-full h-full">
         <video id="video-player" controls preload="auto" autoplay playsinline
@@ -87,8 +87,8 @@
 
         <div id="player-overlay"
           class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 flex flex-col items-center justify-center text-center p-6 z-20 transition-opacity duration-300">
-          <h2 id="overlay-title" class="text-3xl font-bold mb-2">Select a channel to play</h2>
-          <p class="text-slate-400 text-lg">Click on any channel from the sidebar to start streaming.</p>
+          <h2 id="overlay-title" class="text-xl md:text-3xl font-bold mb-2">Select a channel to play</h2>
+          <p class="text-slate-400 text-sm md:text-lg">Click on any channel from the sidebar to start streaming.</p>
         </div>
       </div>
 
@@ -101,7 +101,8 @@
     </section>
 
     <!-- Right: Sidebar Area -->
-    <aside class="w-full lg:w-96 bg-panel border-l border-slate-800 flex flex-col h-full shrink-0">
+    <aside
+      class="flex-1 w-full lg:w-96 bg-panel border-t lg:border-t-0 lg:border-l border-slate-800 flex flex-col min-h-0 shrink-0">
       <div class="p-5 pb-3 border-b border-slate-800 shrink-0">
 
         <!-- Search Box -->
