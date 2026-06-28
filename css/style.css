@@ -2,27 +2,338 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-  Since we are using Tailwind CSS via CDN, we can add some custom utilities 
-  here that aren't available by default (like scrollbar hiding)
-*/
+/* ============================================================
+   BDIX IPTV — Glassmorphism Modern UI
+   ============================================================ */
 
+/* ── Root variables ─────────────────────────────────── */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  --primary: #e50914;
+  --primary-glow: rgba(229, 9, 20, 0.45);
+}
+
+/* ── Base ───────────────────────────────────────────── */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #060608;
+  background-image:
+    radial-gradient(1200px 800px at 12% -10%, rgba(229, 9, 20, 0.18), transparent 55%),
+    radial-gradient(1000px 700px at 110% 10%, rgba(59, 130, 246, 0.16), transparent 55%),
+    radial-gradient(900px 900px at 50% 120%, rgba(139, 92, 246, 0.14), transparent 55%),
+    linear-gradient(180deg, #0a0a10 0%, #060608 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Animated floating glow orbs */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.5), transparent 70%);
+  animation: floatOrb 18s ease-in-out infinite;
+}
+
+body::after {
+  width: 460px;
+  height: 460px;
+  bottom: -160px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.45), transparent 70%);
+  animation: floatOrb 22s ease-in-out infinite reverse;
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.08); }
+}
+
+/* Everything sits above the orbs */
+#app-root,
+header,
+main,
+section,
+aside {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Glass utilities
+   ============================================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Gradient text for logo / headings */
+.text-gradient {
+  background: linear-gradient(90deg, #ffffff 0%, #ff4b54 60%, #ff8a4b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   Channel cards (list view)
+   ============================================================ */
+.channel-card {
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.25s ease, border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.channel-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateX(4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Active (now playing) channel */
+.channel-card.active {
+  background: linear-gradient(90deg, rgba(229, 9, 20, 0.16), rgba(229, 9, 20, 0.03));
+  border-color: rgba(229, 9, 20, 0.55);
+  box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.35), 0 8px 30px rgba(229, 9, 20, 0.25);
+}
+
+.channel-card.active .card-index {
+  color: var(--primary);
+}
+
+/* Channel logo tile */
+.channel-logo-tile {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   Category pills
+   ============================================================ */
+.category-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.category-btn.active {
+  background: linear-gradient(135deg, #e50914 0%, #ff4b54 100%);
+  border-color: rgba(229, 9, 20, 0.6);
+  color: #fff;
+  box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+/* ============================================================
+   Search input
+   ============================================================ */
+.search-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(229, 9, 20, 0.6);
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.18);
+}
+
+.search-clear-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.search-clear-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   Now Playing banner
+   ============================================================ */
+.now-playing-banner {
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.12), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(229, 9, 20, 0.25);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.live-badge {
+  background: linear-gradient(135deg, #e50914, #ff4b54);
+  box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7);
+  animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+  0% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(229, 9, 20, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 9, 20, 0); }
+}
+
+.live-dot {
+  animation: blink 1.4s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ============================================================
+   Quality selector
+   ============================================================ */
+.quality-btn {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.2s ease;
+}
+.quality-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.quality-menu {
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.quality-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   Status indicator
+   ============================================================ */
+.status-indicator {
+  background: #64748b;
+  transition: background 0.3s ease;
+}
+.status-indicator.active {
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  animation: livePulse 2s infinite;
+}
+
+/* ============================================================
+   Entrance animations
+   ============================================================ */
+.fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Custom scrollbars
+   ============================================================ */
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #2a2d35;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+  background-clip: padding-box;
+}
+
+/* ============================================================
+   Video player frame
+   ============================================================ */
+.player-frame {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   Mobile tweaks — touch friendly
+   ============================================================ */
+@media (max-width: 640px) {
+  .channel-card:hover {
+    transform: none;
+  }
+  body::before,
+  body::after {
+    filter: blur(70px);
+    opacity: 0.35;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
